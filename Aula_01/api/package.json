@@ -1,0 +1,26 @@
+{
+  "name": "teste",
+  "version": "1.0.0",
+  "description": "ai",
+  "keywords": [
+    "key",
+    "key"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git"
+  },
+  "license": "ISC",
+  "author": "si",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "ok"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+  },
+  "devDependencies": {}
+}
