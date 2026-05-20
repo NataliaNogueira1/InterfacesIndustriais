@@ -62,7 +62,11 @@ IFACI/
 ### Requisitos
 
 - Node.js v18 ou superior
-- Node-RED instalado (`npm install -g --unsafe-perm node-red`)
+- Node-RED instalado globalmente:
+
+```bash
+npm install -g --unsafe-perm node-red
+```
 
 ### 1. API
 
@@ -72,7 +76,7 @@ npm install
 npm start
 ```
 
-Disponivel em `http://localhost:8080`
+Disponivel em `http://localhost:8080`. Se aparecer `API rodando na porta 8080` esta tudo certo.
 
 ### 2. Frontend
 
@@ -91,6 +95,28 @@ node-red
 ```
 
 Acesse `http://localhost:1880`, va em Menu → Import, selecione o arquivo `node-red/file.json` e clique em Deploy.
+
+### Ordem recomendada
+
+1. Iniciar a API primeiro
+2. Iniciar o Node-RED e fazer o deploy do fluxo
+3. Iniciar o frontend por ultimo
+
+Essa ordem garante que o Node-RED ja encontra a API no ar quando comecar a enviar dados.
+
+### Portas utilizadas
+
+| Servico | Porta |
+|---|---|
+| API | 8080 |
+| Frontend | 3000 |
+| Node-RED | 1880 |
+
+### Observacoes
+
+- Os dados sao armazenados em memoria. Ao reiniciar a API tudo e perdido.
+- O `opcua-server/server.py` e um servidor OPC-UA de referencia, nao e necessario rodar para o projeto funcionar.
+- A collection do Postman em `postman/Painel_IoT.postman_collection.json` pode ser usada para testar os endpoints da API diretamente.
 
 ---
 
