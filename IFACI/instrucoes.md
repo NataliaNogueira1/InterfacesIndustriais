@@ -1,65 +1,91 @@
-# 🚀 Instruções para Rodar o Projeto
-Este guia orienta como configurar e executar tanto o Backend quanto o Frontend da aplicação.
+# Instrucoes para rodar o projeto
 
-## 📦 Instalação de Dependências
-Para que o projeto funcione corretamente, é necessário instalar os módulos do Node (node_modules) em ambas as pastas.
+Para rodar a aplicacao completa voce vai precisar de pelo menos dois terminais abertos ao mesmo tempo — um para a API e outro para o frontend. O Node-RED roda separado tambem.
 
-### 1. Servidor Backend
-A partir da raiz do projeto, execute:
+---
 
-Bash
-cd ifaci
+## Requisitos
+
+- Node.js v18 ou superior
+- Node-RED instalado globalmente:
+
+```bash
+npm install -g --unsafe-perm node-red
+```
+
+---
+
+## Passo a passo
+
+### Terminal 1 — API
+
+Entre na pasta `api` e instale as dependencias:
+
+```bash
+cd api
 npm install
-Estrutura esperada:
-
-ifaci/
-
-server.js
-
-package.json
-
-📂 node_modules/ (será criada aqui)
-
-### 2. Frontend (Next.js/React)
-A partir da raiz, entre na pasta do frontend e instale as dependências:
-
-Bash
-cd ifaci/frontend
-npm install
-Estrutura esperada:
-
-ifaci/frontend/
-
-package.json
-
-tsconfig.json
-
-📂 node_modules/ (será criada aqui)
-
-## 🏃‍♂️ Como Rodar a Aplicação
-Você precisará de dois terminais abertos simultaneamente.
-
-Passo 1: Iniciar o Backend
-No primeiro terminal, dentro da pasta ifaci:
-
-Bash
 npm start
-URL: http://localhost:8080/
+```
 
-Passo 2: Iniciar o Frontend
-No segundo terminal, dentro da pasta ifaci/frontend:
+A API vai rodar em `http://localhost:8080`. Se aparecer a mensagem `API rodando na porta 8080` esta tudo certo.
 
-Bash
+---
+
+### Terminal 2 — Frontend
+
+Entre na pasta `frontend` e instale as dependencias:
+
+```bash
+cd frontend
+npm install
 npm run dev
-URL: http://localhost:3000/
+```
 
-🛠️ Resumo da Estrutura de Pastas
+O frontend vai rodar em `http://localhost:3000`.
 
-ifaci/
-├── frontend/           # Aplicação React/Next.js
-│   ├── app/
-│   └── node_modules/   # Dependências do Front
-├── node-red/           # Fluxos do Node-RED
-├── server.js           # Ponto de entrada do Backend
-├── package.json        # Scripts do Backend
-└── node_modules/       # Dependências do Backend
+---
+
+### Terminal 3 — Node-RED
+
+Inicie o Node-RED:
+
+```bash
+node-red
+```
+
+Acesse `http://localhost:1880` no navegador e importe o fluxo:
+
+1. Clique no menu (tres linhas no canto superior direito)
+2. Va em **Import**
+3. Selecione o arquivo `node-red/file.json`
+4. Clique em **Import** e depois em **Deploy**
+
+Pronto. O Node-RED vai comecar a enviar dados de sensores simulados para a API a cada 5 segundos.
+
+---
+
+## Ordem recomendada
+
+1. Iniciar a API primeiro
+2. Iniciar o Node-RED e fazer o deploy do fluxo
+3. Iniciar o frontend por ultimo
+
+Essa ordem garante que o Node-RED ja encontra a API no ar quando comecar a enviar dados.
+
+---
+
+## Portas utilizadas
+
+| Servico | Porta |
+|---|---|
+| API | 8080 |
+| Frontend | 3000 |
+| Node-RED | 1880 |
+
+---
+
+## Observacoes
+
+- Os dados sao armazenados em memoria. Ao reiniciar a API tudo e perdido.
+- O `opcua-server/server.py` e um servidor OPC-UA de referencia, nao e necessario rodar para o projeto funcionar.
+- A collection do Postman em `postman/Painel_IoT.postman_collection.json` pode ser usada para testar os endpoints da API diretamente.

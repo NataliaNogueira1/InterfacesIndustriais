@@ -2,7 +2,7 @@
   "info": {
     "name": "Painel IoT API",
     "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    "description": "Collection completa da API do Painel de Controle IoT.\n\nBase URL: http://localhost:8080\n\nMódulos:\n- Usuários\n- Equipamentos\n- IoT / Sensores (Node-RED)",
+    "description": "Collection completa da API do Painel de Controle IoT.\n\nBase URL: http://localhost:8080\n\nModulos:\n- Usuarios\n- Equipamentos\n- Dispositivos\n- Sensores IoT",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -14,10 +14,10 @@
   ],
   "item": [
     {
-      "name": "Usuários",
+      "name": "Usuarios",
       "item": [
         {
-          "name": "Listar todos os usuários",
+          "name": "Listar usuarios",
           "request": {
             "method": "GET",
             "header": [],
@@ -26,49 +26,45 @@
               "host": ["{{baseUrl}}"],
               "path": ["usuarios"]
             },
-            "description": "Retorna a lista de todos os usuários cadastrados."
+            "description": "Retorna a lista de todos os usuarios cadastrados."
           }
         },
         {
-          "name": "Criar usuário",
+          "name": "Criar usuario",
           "request": {
             "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nome_completo\": \"João da Silva\",\n  \"email\": \"joao@email.com\",\n  \"senha\": \"senha123\"\n}"
+              "raw": "{\n  \"nome_completo\": \"Maria Silva\",\n  \"email\": \"maria@email.com\",\n  \"senha\": \"senha123\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/novoUsuario",
               "host": ["{{baseUrl}}"],
               "path": ["novoUsuario"]
             },
-            "description": "Cria um novo usuário."
+            "description": "Cria um novo usuario."
           }
         },
         {
-          "name": "Editar usuário",
+          "name": "Editar usuario",
           "request": {
             "method": "PUT",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nome_completo\": \"João Atualizado\",\n  \"email\": \"joao.novo@email.com\",\n  \"senha\": \"novaSenha456\"\n}"
+              "raw": "{\n  \"nome_completo\": \"Maria Atualizada\",\n  \"email\": \"maria.novo@email.com\",\n  \"senha\": \"novaSenha456\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/usuarios/1",
               "host": ["{{baseUrl}}"],
               "path": ["usuarios", "1"]
             },
-            "description": "Edita um usuário pelo id."
+            "description": "Edita um usuario pelo id."
           }
         },
         {
-          "name": "Deletar usuário",
+          "name": "Deletar usuario",
           "request": {
             "method": "DELETE",
             "header": [],
@@ -77,7 +73,7 @@
               "host": ["{{baseUrl}}"],
               "path": ["usuarios", "1"]
             },
-            "description": "Deleta um usuário pelo id."
+            "description": "Remove um usuario pelo id."
           }
         }
       ]
@@ -86,7 +82,7 @@
       "name": "Equipamentos",
       "item": [
         {
-          "name": "Listar todos os equipamentos",
+          "name": "Listar equipamentos",
           "request": {
             "method": "GET",
             "header": [],
@@ -95,19 +91,17 @@
               "host": ["{{baseUrl}}"],
               "path": ["equipamentos"]
             },
-            "description": "Retorna a lista de todos os equipamentos cadastrados."
+            "description": "Retorna a lista de todos os equipamentos."
           }
         },
         {
           "name": "Criar equipamento",
           "request": {
             "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nome\": \"Equipamento A\"\n}"
+              "raw": "{\n  \"nome\": \"Compressor A\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/equipamentos",
@@ -121,12 +115,10 @@
           "name": "Editar equipamento",
           "request": {
             "method": "PUT",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"nome\": \"Equipamento A Atualizado\"\n}"
+              "raw": "{\n  \"nome\": \"Compressor A Revisado\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/equipamentos/1",
@@ -146,16 +138,162 @@
               "host": ["{{baseUrl}}"],
               "path": ["equipamentos", "1"]
             },
-            "description": "Deleta um equipamento pelo id. Notifica o Node-RED via POST /equipamento-deletado."
+            "description": "Remove um equipamento pelo id. Notifica o Node-RED via POST /equipamento-deletado."
           }
         }
       ]
     },
     {
-      "name": "IoT / Sensores (Node-RED)",
+      "name": "Dispositivos",
       "item": [
         {
-          "name": "Listar todos os dados IoT",
+          "name": "Listar dispositivos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dispositivos",
+              "host": ["{{baseUrl}}"],
+              "path": ["dispositivos"]
+            },
+            "description": "Retorna todos os dispositivos cadastrados."
+          }
+        },
+        {
+          "name": "Buscar dispositivo por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dispositivos/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["dispositivos", "1"]
+            },
+            "description": "Retorna um dispositivo especifico pelo id."
+          }
+        },
+        {
+          "name": "Criar dispositivo",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"equipamentoId\": 1,\n  \"statusDispositivo\": \"online\",\n  \"conexaoAtiva\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/dispositivos",
+              "host": ["{{baseUrl}}"],
+              "path": ["dispositivos"]
+            },
+            "description": "Cria um novo dispositivo vinculado a um equipamento. Notifica o Node-RED via POST /dispositivo-criado."
+          }
+        },
+        {
+          "name": "Editar dispositivo",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"statusDispositivo\": \"offline\",\n  \"conexaoAtiva\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/dispositivos/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["dispositivos", "1"]
+            },
+            "description": "Edita um dispositivo pelo id. Notifica o Node-RED via POST /dispositivo-editado."
+          }
+        },
+        {
+          "name": "Deletar dispositivo",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dispositivos/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["dispositivos", "1"]
+            },
+            "description": "Remove um dispositivo pelo id. Notifica o Node-RED via POST /dispositivo-deletado."
+          }
+        },
+        {
+          "name": "Comando — Liberar rele",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"trava_seguranca\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/dispositivos/1/rele",
+              "host": ["{{baseUrl}}"],
+              "path": ["dispositivos", "1", "rele"]
+            },
+            "description": "Libera o rele de seguranca do dispositivo. Envia trava_seguranca: false."
+          }
+        },
+        {
+          "name": "Comando — Travar rele",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"trava_seguranca\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/dispositivos/1/rele",
+              "host": ["{{baseUrl}}"],
+              "path": ["dispositivos", "1", "rele"]
+            },
+            "description": "Trava o rele de seguranca do dispositivo. Envia trava_seguranca: true."
+          }
+        },
+        {
+          "name": "Comando — Liberar conexao",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"conexaoAtiva\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/dispositivos/1/conexao",
+              "host": ["{{baseUrl}}"],
+              "path": ["dispositivos", "1", "conexao"]
+            },
+            "description": "Libera a conexao com o dispositivo."
+          }
+        },
+        {
+          "name": "Comando — Bloquear conexao",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"conexaoAtiva\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/dispositivos/1/conexao",
+              "host": ["{{baseUrl}}"],
+              "path": ["dispositivos", "1", "conexao"]
+            },
+            "description": "Bloqueia a conexao com o dispositivo."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sensores IoT",
+      "item": [
+        {
+          "name": "Listar todos os sensores",
           "request": {
             "method": "GET",
             "header": [],
@@ -164,7 +302,7 @@
               "host": ["{{baseUrl}}"],
               "path": ["iot"]
             },
-            "description": "Retorna todos os dados de sensores recebidos pelo Node-RED."
+            "description": "Retorna todos os dados de sensores recebidos."
           }
         },
         {
@@ -177,16 +315,14 @@
               "host": ["{{baseUrl}}"],
               "path": ["sensor", "1"]
             },
-            "description": "Retorna os dados de um sensor específico pelo id."
+            "description": "Retorna os dados de um sensor especifico pelo id."
           }
         },
         {
-          "name": "Criar dado IoT",
+          "name": "Criar sensor (Node-RED)",
           "request": {
             "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"temperatura\": 22.5,\n  \"pressao\": 1012.0,\n  \"umidade\": 65.0,\n  \"sensor_presenca\": false,\n  \"trava_seguranca\": false\n}"
@@ -196,16 +332,31 @@
               "host": ["{{baseUrl}}"],
               "path": ["newData"]
             },
-            "description": "Cria um novo registro de dados IoT. Usado pelo Node-RED para enviar leituras de sensores."
+            "description": "Cria um novo registro de sensor. Usado pelo Node-RED para enviar leituras."
+          }
+        },
+        {
+          "name": "Criar sensor (manual)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dispositivoId\": 1,\n  \"temperatura\": 28.5,\n  \"pressao\": 1013.2,\n  \"umidade\": 60.0,\n  \"sensor_presenca\": false,\n  \"trava_seguranca\": false\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/sensor",
+              "host": ["{{baseUrl}}"],
+              "path": ["sensor"]
+            },
+            "description": "Cria um sensor manualmente vinculado a um dispositivo. Notifica o Node-RED via POST /sensor-criado."
           }
         },
         {
           "name": "Atualizar sensor (upsert)",
           "request": {
             "method": "PUT",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"temperatura\": 35.7,\n  \"pressao\": 1008.5,\n  \"umidade\": 70.2,\n  \"sensor_presenca\": true,\n  \"trava_seguranca\": false\n}"
@@ -215,7 +366,20 @@
               "host": ["{{baseUrl}}"],
               "path": ["sensor", "1"]
             },
-            "description": "Atualiza os dados de um sensor pelo id. Se não existir, cria automaticamente (upsert). Usado pelo Node-RED a cada 5 segundos."
+            "description": "Atualiza os dados de um sensor pelo id. Se nao existir, cria automaticamente. Notifica o Node-RED via POST /sensor-editado."
+          }
+        },
+        {
+          "name": "Deletar sensor",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/sensor/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["sensor", "1"]
+            },
+            "description": "Remove um sensor pelo id. Notifica o Node-RED via POST /sensor-deletado."
           }
         }
       ]
